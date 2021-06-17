@@ -1,0 +1,158 @@
+{
+  "openable": "3.0.0",
+  "info": {
+    "title":"Users Repository Documentation",
+    "description" : "This is an API Users Repository",
+    "version" : "1.0.0",
+    "contact" : {
+      "name" : "API Users Repository",
+      "url": "https://rodrigoviturino.com.br",
+      "email" : "viturino_souza@outlook.com"
+    }
+},
+  "swagger": "2.0",
+  "paths" : {
+    "/users": {
+      "post": {
+        "tags" : ["User"],
+        "summary" : "Create a User",
+        "description" : "Create a new User",
+        "parameters": [],
+        "requestBody": {
+          "description": "user to add to the system",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "responses":{
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userResponse"
+                },
+                "example": [
+                  {
+                    "body": {
+                      "id": "e05xx0000000001AAA",
+                      "success": true,
+                      "errors": []
+                    },
+                    "httpStatusCode": 201,
+                    "referenceId": "refCase1"
+                  }
+                ]
+              }
+            }
+          },
+          "500":{
+            "description" : "Category already exists"
+          }
+        }
+      }
+    },
+    "/users/:id/admin": {
+      "patch": {
+        "tags" : ["User"],
+        "summary" : "Create a Category",
+        "description" : "Create a new Category",
+        "requestBody": {
+          "description": "user to add to the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                  "user" : {
+                    "summary": "User Example", 
+                    "externalValue": "http://foo.bar/examples/user-example.json"
+                  } 
+                }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                  "user" : {
+                    "summary": "User example in XML",
+                    "externalValue": "http://foo.bar/examples/user-example.xml"
+                  }
+                }
+            },
+            "text/plain": {
+              "examples": {
+                "user" : {
+                    "summary": "User example in Plain text",
+                    "externalValue": "http://foo.bar/examples/user-example.txt" 
+                }
+              } 
+            },
+            "*/*": {
+              "examples": {
+                "user" : {
+                    "summary": "User example in other format",
+                    "externalValue": "http://foo.bar/examples/user-example.whatever"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201": {
+            "description" : "Created"
+          },
+          "500":{
+            "description" : "Category already exists"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas":{
+      "user": {
+        "required": [
+          "allOrNone",
+          "compositeRequest"
+        ],
+        "type": "object",
+        "properties": {
+          "allOrNone": {
+            "type": "boolean"
+          }
+        }
+      },
+      "userResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/error"
+        }
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
